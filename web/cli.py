@@ -6,6 +6,13 @@ import config
 import os
 os.environ["PGADMIN_TESTING_MODE"] = "1"
 
+config.DATA_DIR = '.'
+config.SQLITE_PATH = 'test.db'
+config.TEST_SQLITE_PATH = 'test.db'
+config.LOG_FILE = 'test.log'
+config.SESSION_DB_PATH = 'sessions'
+config.STORAGE_DIR = 'storage'
+
 config.SERVER_MODE = False
 config.WTF_CSRF_ENABLED = False
 #config.LOGIN_DISABLED = True
@@ -69,7 +76,7 @@ config.SETTINGS_SCHEMA_VERSION = SCHEMA_VERSION
 
 print("Starting schema diff...")
 ## Starts the Flask app, this step takes a while
-app = create_app()
+app = create_app("pgadmin-cli")
 
 from sys import argv
 
