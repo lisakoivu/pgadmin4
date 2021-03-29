@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - cli
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: set env
+      run: |
+        echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Build container
+      run: |
+        docker build -t pgadmin-schema-diff -f Dockerfile.cli .
+    - name: Login to dockerhub
+      run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    - name: Push to dockerhub
+      run: |
+        docker tag pgadmin-schema-diff stevechavez/pgadmin-schema-diff:${{ TAG }}
+        docker tag pgadmin-schema-diff stevechavez/pgadmin-schema-diff:latest
+        docker push stevechavez/pgadmin-schema-diff:${{ TAG }}
+        docker push stevechavez/pgadmin-schema-diff:latest
+
