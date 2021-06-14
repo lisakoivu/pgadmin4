@@ -82,9 +82,9 @@ RUN apk add \
     touch /pgadmin4/config_distro.py && \
     chown pgadmin:pgadmin /pgadmin4/config_distro.py && \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/python3.8 && \
-    echo "pgadmin ALL = NOPASSWD: /usr/sbin/postfix start" > /etc/sudoers.d/postfix
-
-# USER pgadmin
+    # echo "pgadmin ALL = NOPASSWD: /usr/sbin/postfix start" > /etc/sudoers.d/postfix
+    echo 'pgadmin ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/pgadmin
+USER pgadmin
 WORKDIR /pgadmin4/web
 COPY web/cli.py /pgadmin4/web
 

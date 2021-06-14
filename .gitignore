@@ -1,4 +1,5 @@
 **/run.sh
+*.log
 *.autosave
 *.db
 *.o
