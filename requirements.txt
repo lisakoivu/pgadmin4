@@ -36,3 +36,4 @@ sshtunnel==0.*
 ldap3==2.*
 Flask-BabelEx==0.*
 gssapi==1.6.*
+psycopg2-binary
